@@ -20,6 +20,13 @@ class Estudiante(Usuario):
         else:
             return f"No se puede solicitar el libro {titulo} porque se ha alcanzado el límite de libros prestados"
 
+    def devolver_libro(self, titulo: str):
+        if titulo in self.libros_prestados:
+            self.libros_prestados.remove(titulo)
+            return f"Libro {titulo} devuelto"
+        else:
+            return f"El libro {titulo} no está prestado"
+
 
 class Profesor(Usuario):
     def __init__(self, nombre: str, cedula: str):
@@ -34,8 +41,10 @@ class Profesor(Usuario):
 estudiante = Estudiante("Juan", "1234567890", "Ingeniería")
 profesor = Profesor("Pedro", "1234567890")
 
-print(estudiante.solicitar_libro("El principito"))
-print(estudiante.solicitar_libro("El principito"))
-print(estudiante.solicitar_libro("El principito"))
-print(estudiante.solicitar_libro("El principito"))
+print(estudiante.solicitar_libro("El principito 1"))
+print(estudiante.solicitar_libro("El principito 2"))
+print(estudiante.solicitar_libro("El principito 3"))
+print(estudiante.solicitar_libro("El principito 5"))
+print(estudiante.devolver_libro("El principito 2"))
+print(estudiante.solicitar_libro("El principito 5"))
 print(profesor.solicitar_libro("El asesinato del总统"))
