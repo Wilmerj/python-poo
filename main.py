@@ -1,3 +1,13 @@
+from typing import Protocol
+
+class LibroProtocol(Protocol):
+    def prestar(self) -> str:
+        """Metodo que debe implementar cualquier clase que implemente este protocolo"""
+        ...
+    def calcular_duracion(self) -> str:
+        """Metodo que debe implementar cualquier clase que implemente este protocolo"""
+        ...
+
 class Libro:
     def __init__(self, titulo: str, autor: str, isbn: str, disponible: bool):
         self.titulo = titulo
@@ -21,6 +31,22 @@ class Libro:
     def es_popular(self):
         return 'es popular' if self.prestamos > 4 else 'no es popular'
 
+class LibroFisico(Libro):
+    def __init__(self, titulo: str, autor: str, isbn: str, disponible: bool):
+        super().__init__(titulo, autor, isbn, disponible)
+        self.paginas = 100
+
+    def calcular_duracion(self):
+        return f'{self.titulo} tiene {self.paginas} paginas'
+
+class LibroDigital(Libro):
+    def __init__(self, titulo: str, autor: str, isbn: str, disponible: bool):
+        super().__init__(titulo, autor, isbn, disponible)
+        self.tamanio = 100
+
+    def calcular_duracion(self):
+        return f'{self.titulo} tiene {self.tamanio} MB'
+
 mi_libro = Libro("El principito", "Antoine de Saint-Exupéry", "1234567890", True)
 print(mi_libro.prestar())
 print(mi_libro.prestar())
@@ -30,8 +56,11 @@ print(mi_libro.prestar())
 print(mi_libro.es_popular())
 
 otro_libro = Libro("1984", "George Orwell", "1234567890", True)
+libro_fisico = LibroFisico("El principito", "Antoine de Saint-Exupéry", "1234567890", True)
+libro_digital = LibroDigital("1984", "George Orwell", "1234567890", True)
 
-catalogo = [mi_libro, otro_libro]
+catalogo: list[Libro] = [mi_libro, otro_libro]
+catalogo_libros: list[LibroProtocol] = [libro_fisico, libro_digital]
 
 for libro in catalogo:
     print(f'libro: {libro}')

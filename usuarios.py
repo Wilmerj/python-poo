@@ -50,7 +50,7 @@ profesor = Profesor("Pedro", "1234567890")
 from main import Libro
 libro = Libro("El principito", "Antoine de Saint-Exupéry", "1234567890", True)
 
-usuarios: list[SolicitanteProtocol] = [estudiante, profesor, libro]
+usuarios: list[SolicitanteProtocol] = [estudiante, profesor]
 
 for usuario in usuarios:
     print(usuario.solicitar_libro(libro.titulo))
