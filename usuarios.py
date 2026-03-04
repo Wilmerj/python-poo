@@ -1,5 +1,5 @@
 from typing import Protocol
-
+from exceptions import TituloInvalidoError
 class SolicitanteProtocol(Protocol):
     def solicitar_libro(self, titulo: str) -> str:
         """Metodo que debe implementar cualquier clase que implemente este protocolo"""
@@ -20,6 +20,8 @@ class Estudiante(Usuario):
         self.limite_libros = 3
 
     def solicitar_libro(self, titulo: str):
+        if not titulo:
+            raise TituloInvalidoError("El titulo del libro no puede ser None")
         if len(self.libros_prestados) < self.limite_libros:
             self.libros_prestados.append(titulo)
             return f"Solicitud del libro {titulo} realizada"

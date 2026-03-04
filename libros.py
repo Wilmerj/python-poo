@@ -1,5 +1,5 @@
 from typing import Protocol
-
+from exceptions import LibroNoDisponibleError
 class LibroProtocol(Protocol):
     def prestar(self) -> str:
         """Metodo que debe implementar cualquier clase que implemente este protocolo"""
@@ -23,6 +23,8 @@ class Libro:
         return f'{self.titulo} - {self.autor} - {self.isbn} - {self.disponible}'
 
     def prestar(self):
+        if not self.disponible:
+            raise LibroNoDisponibleError("El libro no está disponible")
         self.disponible = False
         self.prestamos += 1
         return f'{self.titulo} prestado'
