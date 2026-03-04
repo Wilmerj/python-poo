@@ -8,7 +8,7 @@ class Usuario:
     def __init__(self, nombre: str, cedula: str):
         self.nombre = nombre
         self.cedula = cedula
-        self.libros_prestados = []
+        self.libros_prestados: list[str] = []
 
     def solicitar_libro(self, titulo: str):
         return f"Solicitud del libro {titulo} realizada"
@@ -42,15 +42,3 @@ class Profesor(Usuario):
     def solicitar_libro(self, titulo: str):
         self.libros_prestados.append(titulo)
         return f"Solicitud del libro {titulo} realizada"
-
-
-estudiante = Estudiante("Juan", "1234567890", "Ingeniería")
-profesor = Profesor("Pedro", "1234567890")
-
-from main import Libro
-libro = Libro("El principito", "Antoine de Saint-Exupéry", "1234567890", True)
-
-usuarios: list[SolicitanteProtocol] = [estudiante, profesor]
-
-for usuario in usuarios:
-    print(usuario.solicitar_libro(libro.titulo))
