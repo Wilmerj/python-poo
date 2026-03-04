@@ -24,7 +24,7 @@ class Libro:
 
     def prestar(self):
         if not self.disponible:
-            raise LibroNoDisponibleError("El libro no está disponible")
+            raise LibroNoDisponibleError(f"El libro {self.titulo} no está disponible")
         self.disponible = False
         self.prestamos += 1
         return f'{self.titulo} prestado'
