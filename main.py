@@ -1,26 +1,49 @@
 from crear_libros import CrearLibros
 from biblioteca import Biblioteca
-from usuarios import Estudiante, Profesor
-from exceptions import UsuarioNoEncontradoError
+from usuarios import Profesor
+from data import data_libros, data_estudiantes
+from exceptions import UsuarioNoEncontradoError, LibroNoDisponibleError, TituloInvalidoError
 
 biblioteca = Biblioteca("Biblioteca Central")
 crear_libros = CrearLibros()
 crear_libros.crear_libro_fisico("El principito", "Antoine de Saint-Exupéry", "1234567890", True)
 crear_libros.crear_libro_digital("100 años de soledad", "Gabriel García Márquez", "1234567890", False)
 
-estudiante = Estudiante("Juan", "1234567890", "Ingeniería")
-estudiante_1 = Estudiante("Juan 1", "1234567890", "Ingeniería")
 profesor = Profesor("Pedro", "1234567890")
-
-biblioteca.usuarios = [estudiante, estudiante_1, profesor]
+biblioteca.usuarios = [profesor, *data_estudiantes]
+biblioteca.libros = [*data_libros]
 
 print('Bienvenido a la biblioteca')
 print('Libros disponibles:')
 for libro in crear_libros.get_libros():
     print(f'  - {libro.titulo}')
 cedula = input("Ingrese la cedula del usuario: ")
+usuario = None
 try:
     usuario = biblioteca.buscar_usuario(cedula)
     print(f'Bienvenido {usuario.nombre}')
 except UsuarioNoEncontradoError as e:
     print(e)
+
+titulo = input("Ingrese el titulo del libro: ")
+libro = None
+try:
+    libro = biblioteca.buscar_libro(titulo)
+    print(f'Libro encontrado: {libro.titulo}')
+except LibroNoDisponibleError as e:
+    print(e)
+
+if usuario and libro:
+    try:
+        resultado = usuario.solicitar_libro(libro.titulo)
+        print("\nResultado de la solicitud: ", resultado)
+    except TituloInvalidoError as e:
+        print(e)
+
+    try:
+        resultado_prestar = libro.prestar()
+        print("\nResultado de la prestación: ", resultado_prestar)
+    except LibroNoDisponibleError as e:
+        print(e)
+else:
+    print("\nNo se encontró el usuario o el libro")

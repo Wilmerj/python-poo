@@ -12,7 +12,7 @@ class LibroProtocol(Protocol):
         ...
 
 class Libro:
-    def __init__(self, titulo: str, autor: str, isbn: str, disponible: bool):
+    def __init__(self, titulo: str, autor: str, isbn: str, disponible: bool = True):
         self.titulo = titulo
         self.autor = autor
         self.isbn = isbn
@@ -37,7 +37,7 @@ class Libro:
         return 'es popular' if self.prestamos > 4 else 'no es popular'
 
 class LibroFisico(Libro):
-    def __init__(self, titulo: str, autor: str, isbn: str, disponible: bool):
+    def __init__(self, titulo: str, autor: str, isbn: str, disponible: bool = True):
         super().__init__(titulo, autor, isbn, disponible)
         self.paginas = 100
 
@@ -45,7 +45,7 @@ class LibroFisico(Libro):
         return f'7 dias'
 
 class LibroDigital(Libro):
-    def __init__(self, titulo: str, autor: str, isbn: str, disponible: bool):
+    def __init__(self, titulo: str, autor: str, isbn: str, disponible: bool = True):
         super().__init__(titulo, autor, isbn, disponible)
         self.tamanio = 100
 

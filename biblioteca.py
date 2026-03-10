@@ -1,6 +1,6 @@
 from libros import Libro
 from usuarios import Usuario
-from exceptions import UsuarioNoEncontradoError
+from exceptions import UsuarioNoEncontradoError, LibroNoDisponibleError
 class Biblioteca:
     def __init__(self, nombre: str):
         self.nombre = nombre
@@ -15,3 +15,9 @@ class Biblioteca:
             if usuario.cedula == cedula:
                 return usuario
         raise UsuarioNoEncontradoError(f"Usuario con cedula {cedula} no encontrado")
+
+    def buscar_libro(self, titulo: str):
+        for libro in self.libros:
+            if libro.titulo == titulo and libro.disponible:
+                return libro
+        raise LibroNoDisponibleError(f"Libro con titulo {titulo} no disponible")
