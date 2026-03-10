@@ -1,4 +1,5 @@
 from typing import Protocol
+from abc import ABC, abstractmethod
 from exceptions import LibroNoDisponibleError
 class LibroProtocol(Protocol):
     def prestar(self) -> str:
@@ -11,7 +12,20 @@ class LibroProtocol(Protocol):
         """Metodo que debe implementar cualquier clase que implemente este protocolo"""
         ...
 
-class Libro:
+class LibroBase(ABC):
+    @abstractmethod
+    def prestar(self) -> str:
+        pass
+    @abstractmethod
+    def devolver(self) -> str:
+        pass
+    @abstractmethod
+    def calcular_duracion(self) -> str:
+        pass
+    @abstractmethod
+    def es_popular(self) -> str:
+        pass
+class Libro(LibroBase):
     def __init__(self, titulo: str, autor: str, isbn: str, disponible: bool = True):
         self.titulo = titulo
         self.autor = autor
