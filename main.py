@@ -5,9 +5,6 @@ from data import data_libros, data_estudiantes
 from exceptions import UsuarioNoEncontradoError, LibroNoDisponibleError, TituloInvalidoError
 
 biblioteca = Biblioteca("Biblioteca Central")
-crear_libros = CrearLibros()
-crear_libros.crear_libro_fisico("El principito", "Antoine de Saint-Exupéry", "1234567890", True)
-crear_libros.crear_libro_digital("100 años de soledad", "Gabriel García Márquez", "1234567890", False)
 
 profesor = Profesor("Pedro", "1234567890")
 biblioteca.usuarios = [profesor, *data_estudiantes]
@@ -15,7 +12,7 @@ biblioteca.libros = [*data_libros]
 
 print('Bienvenido a la biblioteca')
 print('Libros disponibles:')
-for libro in crear_libros.get_libros():
+for libro in biblioteca.libros:
     print(f'  - {libro.titulo}')
 cedula = input("Ingrese la cedula del usuario: ")
 usuario = None
