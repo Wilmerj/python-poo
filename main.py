@@ -12,8 +12,13 @@ biblioteca.libros = [*data_libros]
 
 print('Bienvenido a la biblioteca')
 print('Libros disponibles:')
-for libro in biblioteca.libros:
-    print(f'  - {libro.titulo}')
+for libro in biblioteca.libros_disponibles:
+    print(f'  - {libro.descripcion_completa}')
+
+print('Usuarios:')
+for usuario in biblioteca.usuarios:
+    print(f'  - {usuario.nombre_completo}')
+
 cedula = input("Ingrese la cedula del usuario: ")
 usuario = None
 try:
@@ -39,7 +44,9 @@ if usuario and libro:
 
     try:
         resultado_prestar = libro.prestar()
+        libro.veces_prestado += 1
         print("\nResultado de la prestación: ", resultado_prestar)
+        print(f"El libro {libro.titulo} ha sido prestado {libro.veces_prestado} veces")
     except LibroNoDisponibleError as e:
         print(e)
 else:

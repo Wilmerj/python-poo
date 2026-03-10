@@ -7,8 +7,9 @@ class Biblioteca:
         self.libros: list[Libro] = []
         self.usuarios: list[Usuario] = []
 
+    @property
     def libros_disponibles(self):
-        return [str(libro) for libro in self.libros if libro.disponible]
+        return [libro for libro in self.libros if libro.disponible]
 
     def buscar_usuario(self, cedula: str):
         for usuario in self.usuarios:

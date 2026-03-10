@@ -31,7 +31,7 @@ class Libro(LibroBase):
         self.autor = autor
         self.isbn = isbn
         self.disponible = disponible
-        self.prestamos = 0
+        self._veces_prestado = 0
 
     def __str__(self):
         return f'{self.titulo} - {self.autor} - {self.isbn} - {self.disponible}'
@@ -40,15 +40,31 @@ class Libro(LibroBase):
         if not self.disponible:
             raise LibroNoDisponibleError(f"El libro {self.titulo} no está disponible")
         self.disponible = False
-        self.prestamos += 1
+        self._veces_prestado += 1
         return f'{self.titulo} prestado'
 
     def devolver(self):
         self.disponible = True
         return f'{self.titulo} devuelto'
 
+    @property
     def es_popular(self):
-        return 'es popular' if self.prestamos > 4 else 'no es popular'
+        return 'es popular' if self._veces_prestado > 5 else 'no es popular'
+
+    @property
+    def veces_prestado(self):
+        return self._veces_prestado
+
+    @veces_prestado.setter
+    def veces_prestado(self, veces_prestado: int):
+        if veces_prestado > 0:
+            self._veces_prestado = veces_prestado
+        else:
+            raise ValueError("El numero de veces prestado no puede ser negativo")
+
+    @property
+    def descripcion_completa(self):
+        return f'{self.titulo} por {self.autor} (ISBN: {self.isbn})'
 
 class LibroFisico(Libro):
     def __init__(self, titulo: str, autor: str, isbn: str, disponible: bool = True):
