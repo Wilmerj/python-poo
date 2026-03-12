@@ -36,6 +36,10 @@ class Estudiante(Usuario):
         self.carrera = carrera
         self.limite_libros = 3
 
+    @classmethod
+    def crear_estudiante_software(cls, nombre: str, cedula: str, carrera: str = "Software"):
+        return cls(nombre, cedula, carrera)
+
     def solicitar_libro(self, titulo: str):
         if not titulo:
             raise TituloInvalidoError("El titulo del libro no puede ser None")

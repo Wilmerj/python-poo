@@ -22,3 +22,7 @@ class Biblioteca:
             if libro.titulo == titulo and libro.disponible:
                 return libro
         raise LibroNoDisponibleError(f"Libro con titulo {titulo} no disponible")
+
+    @staticmethod
+    def validar_isbn(isbn: str):
+        return len(isbn) >= 10

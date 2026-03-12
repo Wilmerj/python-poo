@@ -33,6 +33,10 @@ class Libro(LibroBase):
         self.disponible = disponible
         self._veces_prestado = 0
 
+    @classmethod
+    def crear_no_disponible(cls, titulo: str, autor: str, isbn: str):
+        return cls(titulo, autor, isbn, disponible=False)
+
     def __str__(self):
         return f'{self.titulo} - {self.autor} - {self.isbn} - {self.disponible}'
 
@@ -46,6 +50,9 @@ class Libro(LibroBase):
     def devolver(self):
         self.disponible = True
         return f'{self.titulo} devuelto'
+
+    def calcular_duracion(self) -> str:
+        return "Consultar"
 
     @property
     def es_popular(self):

@@ -3,12 +3,20 @@ from biblioteca import Biblioteca
 from usuarios import Profesor
 from data import data_libros, data_estudiantes
 from exceptions import UsuarioNoEncontradoError, LibroNoDisponibleError, TituloInvalidoError
+from libros import Libro
+from usuarios import Estudiante
 
 biblioteca = Biblioteca("Biblioteca Central")
 
 profesor = Profesor("Pedro", "1234567890")
 biblioteca.usuarios = [profesor, *data_estudiantes]
 biblioteca.libros = [*data_libros]
+
+libro_no_disponible = Libro.crear_no_disponible("50 años de soledad no disponible", "Gabriel García Márquez", "1234567890")
+print(libro_no_disponible.disponible)
+
+estudiante_software = Estudiante.crear_estudiante_software("Juan", "1234567890")
+print(estudiante_software.carrera)
 
 print('Bienvenido a la biblioteca')
 print('Libros disponibles:')
@@ -51,3 +59,6 @@ if usuario and libro:
         print(e)
 else:
     print("\nNo se encontró el usuario o el libro")
+
+# resultado = Biblioteca.validar_isbn("1221320")
+# print(f"El ISBN es valido: {resultado}")
