@@ -1,22 +1,22 @@
 from crear_libros import CrearLibros
-from biblioteca import Biblioteca
-from usuarios import Profesor
-from data import data_libros, data_estudiantes
 from exceptions import UsuarioNoEncontradoError, LibroNoDisponibleError, TituloInvalidoError
-from libros import Libro
-from usuarios import Estudiante
+from persistencia import Persistencia
+from data import data_libros, data_estudiantes
+from usuarios import Profesor
 
-biblioteca = Biblioteca("Biblioteca Central")
+persistencia = Persistencia()
+biblioteca = persistencia.cargar_datos()
 
-profesor = Profesor("Pedro", "1234567890")
-biblioteca.usuarios = [profesor, *data_estudiantes]
-biblioteca.libros = [*data_libros]
+# Si el JSON estaba vacío, cargar datos iniciales y guardar para la próxima
+if not biblioteca.libros and not biblioteca.usuarios:
+    biblioteca.libros = [*data_libros]
+    biblioteca.usuarios = [Profesor("Pedro", "1234567890"), *data_estudiantes]
+    persistencia.guardar_datos(biblioteca)
+# libro_no_disponible = Libro.crear_no_disponible("50 años de soledad no disponible", "Gabriel García Márquez", "1234567890")
+# print(libro_no_disponible.disponible)
 
-libro_no_disponible = Libro.crear_no_disponible("50 años de soledad no disponible", "Gabriel García Márquez", "1234567890")
-print(libro_no_disponible.disponible)
-
-estudiante_software = Estudiante.crear_estudiante_software("Juan", "1234567890")
-print(estudiante_software.carrera)
+# estudiante_software = Estudiante.crear_estudiante_software("Juan", "1234567890")
+# print(estudiante_software.carrera)
 
 print('Bienvenido a la biblioteca')
 print('Libros disponibles:')

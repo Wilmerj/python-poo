@@ -10,3 +10,6 @@ wheels/
 .venv
 .DS_Store
 .mypy_cache
+
+# JSON files
+*.json
